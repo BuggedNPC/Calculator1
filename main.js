@@ -13,6 +13,16 @@ function insertText(txt) {
   $expr.focus();
   $expr.setSelectionRange(caret, caret);
 }
+function startListening() {
+  const recognition = new window.webkitSpeechRecognition();
+  recognition.lang = 'en-US';
+  recognition.onresult = function(event) {
+    const spokenText = event.results[0][0].transcript;
+    $expr.value = spokenText;
+    processNaturalLanguage(spokenText);
+  };
+  recognition.start();
+}
 
 // For function buttons like sin(, cos(, etc.
 function wrapIfFunc(token) {
@@ -38,6 +48,22 @@ function delChar() {
     $expr.setSelectionRange(start - 1, start - 1);
   }
   $expr.focus();
+}
+
+function processNaturalLanguage(text) {
+  text = text.toLowerCase()
+             .replace("plus", "+")
+             .replace("minus", "-")
+             .replace("times", "*")
+             .replace("multiplied by", "*")
+             .replace("divided by", "/")
+             .replace("over", "/")
+             .replace("into", "*")
+             .replace("mod", "%")
+             .replace("power", "**");
+
+  $expr.value = text;
+  calculate();
 }
 
 // Calculate expression directly in browser
@@ -109,3 +135,4 @@ $expr.addEventListener("input", () => {
 
 // Focus input when loaded
 $expr.focus();
+
