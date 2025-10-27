@@ -14,7 +14,9 @@
   <div class="app">
     <div class="calc">
       <div class="display">
+        <div id="result"></div>
         <input id="expr" type="text" placeholder="0" autocomplete="off"/>
+        <input id="input" type="text" placeholder="Voice" />
         <div id="result" class="result">=</div>
       </div>
 
@@ -62,6 +64,8 @@
         <!-- Row 8 -->
         <button data-insert="pi" class="wide">π</button>
         <button data-insert="e" class="wide">e</button>
+        <button onclick="startListening()">🎤 Speak</button>
+
 
         <!-- Row 9 -->
         <button id="equals" class="equals">=</button>
@@ -78,5 +82,6 @@
   <script src="main.js" defer></script>
 </body>
 </html>
+
 
 
